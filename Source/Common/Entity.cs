@@ -25,7 +25,17 @@ public abstract class Entity
 
     protected void SetUpdatedAt(IDateTimeProvider provider) => UpdatedAt = provider.UtcNow;
 
-    public void Deactivate() => IsActive = false;
+    public void Deactivate(Guid entityId)
+    {
+        if (Id != entityId)
+        {
+            Error.Failure(
+                "Deactivate.NotFound",
+                $"The entity with the Id = '{entityId}' was not found");
+        }
+
+        IsActive = false;
+    }
 
     public List<IDomainEvent> DomainEvents => [.. _events];
 

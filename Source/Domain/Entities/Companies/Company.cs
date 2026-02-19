@@ -95,10 +95,10 @@ public sealed class Company : Entity, IAggregateRoot
             return;
         }
 
-        currentContacts.Update(contact.Email, contact.Phone);
+        currentContacts.Update(contact.Email!, contact.Phone!);
     }
 
     public void RemoveContact(Guid contactId) => _contacts.RemoveAll(c => c.Id == contactId);
 
-    public void DeactivateCompany() => Deactivate();
+    public void SetAsDisable(Guid companyId) => Deactivate(companyId);
 }

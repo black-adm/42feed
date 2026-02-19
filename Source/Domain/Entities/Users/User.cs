@@ -14,27 +14,30 @@ public sealed class User : Entity, IAggregateRoot
 
     public string Registration { get; private set; }
 
-    public string PasswordHash { get; private set; }
+    public string CompanyPosition { get; private set; }
+
+    public string PasswordHash { get; private set; } = null!;
 
     public IReadOnlyCollection<Role> Roles => _roles;
 
     public IReadOnlyCollection<Contact> Contacts => _contacts;
 
-    public Address? Address { get; private set; } = null!;
+    public Address Address { get; private set; } = null!;
 
     private User()
     {
     }
 
-    private User(string name, string registration)
+    private User(string name, string registration, string companyPosition)
     {
         Name = name;
         Registration = registration;
+        CompanyPosition = companyPosition;
     }
 
-    public static User Create(string name, string registration)
+    public static User Create(string name, string registration, string companyPosition)
     {
-        return new User(name, registration);
+        return new User(name, registration, companyPosition);
     }
 
     public void AddRole(Role role)
@@ -103,7 +106,7 @@ public sealed class User : Entity, IAggregateRoot
 
     public void RemoveAddress() => Address = null;
 
-    public void ChangePassword(string passwordHash) => PasswordHash = passwordHash;
+    public void SetPassword(string passwordHash) => PasswordHash = passwordHash;
 
-    public void DeactivateUser() => Deactivate();
+    public void SetAsDisable(Guid userId) => Deactivate(userId);
 }

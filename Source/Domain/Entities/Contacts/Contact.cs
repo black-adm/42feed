@@ -35,5 +35,5 @@ public sealed class Contact : Entity, IAggregateRoot
         Phone = phone;
     }
 
-    public void DeactivateContact() => Deactivate();
+    public void SetAsDisable(Guid contactId) => Deactivate(contactId);
 }

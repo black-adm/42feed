@@ -25,7 +25,7 @@ public sealed class Address : Entity, IAggregateRoot
 
     public Company Company { get; private set; } = null!;
 
-    public User? User { get; private set; } = null!;
+    public User User { get; private set; } = null!;
 
     private Address()
     {
@@ -96,5 +96,5 @@ public sealed class Address : Entity, IAggregateRoot
         Uf = uf;
     }
 
-    public void DeactivateAddress() => Deactivate();
+    public void SetAsDisable(Guid addressId) => Deactivate(addressId);
 }
